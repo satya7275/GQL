@@ -1,0 +1,62 @@
+/deploy/github.com/satya7275/GQL
+
+spec:
+selector:
+ matchLabels:
+  app:/github.com/satya7275/GQL
+ usb-carId:car7598
+usb-drTier:tier3
+  usb-environment:UAT
+ usb-costCenter:costcenter9990002018
+ template:
+ metadata:
+ labels:
+    app:/github.com/satya7275/GQL
+ usb-carId:car7598
+ usb-drTier : tier3
+ usb-environment:UAT
+ usb-costCenter:costcenter9990002018
+ spec:
+ containers:
+   -image: #DOCKER_IMAGE#
+ envFrom:
+   -configMapRef:
+  name:/github.com/satya7275/GQL
+    -secretRef:
+   name: /github.com/satya7275/GQL-secret
+ -  configMapRef:
+ name:edai-osl-cassandra-config
+ - configMapRef:
+ name:edai-osl-appd-config
+ -secretRef:
+ name: edai-osl-cassandra-secret
+ name: /eas/ipm/person/details/data/graphql-query/v1/graphql/health
+ livenessProbe:
+ failureThreshold: 10
+ httpGet:
+   path:/eas/ipm/person/details/data/graphql-query/v1/graphql/health
+   port: 8080
+ scheme:HTTP
+ initialDelaySeconds: 180
+periodSeconds:60
+ successThreshold:1
+ timeoutSeconds:1
+ readinessProbe:
+   failureThreshold: 20
+httpGet:
+   path:/eas/ipm/person/details/data/graphql-query/v1/graphql/health
+   port: 8080
+ scheme:HTTP
+ initialDelaySeconds: 180
+periodSeconds:60
+ successThreshold:1
+ timeoutSeconds:1
+ resources:
+ limits:
+  cpu:300m
+ memory:512Mi
+ requests:
+ cpu:100m
+ memory:256Mi
+ imagePullSecrets:
+   -name: usb-artifactory-prodl
