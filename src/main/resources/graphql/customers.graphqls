@@ -1,0 +1,14 @@
+
+type Query{
+	CUSTOMERS(customerId:Int):[CUSTOMERS]
+}
+
+type CUSTOMERS{
+	customerId:Int
+	address:String
+	city:String
+	customerName:String
+	state:String
+	zipCode:String
+}
+
